@@ -1,9 +1,22 @@
-import { useState } from 'react'
+import Header from "./Header";
+import Content from "./Content";
+import Total from "./Total";
 
-const Note = ({note}) => {
-    return(
-      <li> { note.content }</li>
-    )
-  }
+const Course = ({course}) =>{
 
-export default Note;
+  return (
+    <>
+      {
+        course.map(course =>
+          <div key={course.id}>
+            <Header name={course.name}/>
+            <Content parts={course.parts}/>
+            <Total parts={course.parts}/>
+          </div>
+        )
+      }
+    </>
+  )
+}
+
+export default Course;
