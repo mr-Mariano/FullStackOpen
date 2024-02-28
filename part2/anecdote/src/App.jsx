@@ -4,30 +4,34 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Course from './components/Course'
 
-const App = () => {
-  const course = {
-    id: 1,
-    name: 'Half Stack application development',
+
+const App = ({notes}) => {
+  const [notes, setNotes] = useState(notes)
+  const course = [
+    {
+    id : 1,
+    name :'Half Stack application development',
+    parts : [
+      { id:1, title:'Fundamentals of React', exercises: 10},
+      { id:2, title:'Using props to pass data', exercises : 7},
+      { id:3, title: 'State of a component', exercises : 14},
+      { id:4 , title: 'Redux', exercises: 11}
+    ]
+  },
+  {
+    id: 2,
+    name: 'Node.js',
     parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      }
+      { id: 1, title : 'Routing', exercises: 3},
+      { id:2, title: 'Middlewares', exercises: 7},
     ]
   }
-
-  return <Course course={course} />
+]
+  return (
+    <div>
+      <Course course={course}/>
+    </div>
+  )
 }
 
 export default App
