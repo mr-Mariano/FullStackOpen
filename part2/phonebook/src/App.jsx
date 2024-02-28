@@ -2,18 +2,23 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Note from "./components/Note"
+import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
+import Persons from "./components/Persons";
 
 const App = (props) => {
-  const [filter, setNewFilter] = useState("")
+
   const [name, setNewName] = useState("")
   const [number, setNewNumber] = useState("")
   const [persons, setPersons] = useState([
-    {
-      id:1,
-      name : "Arto Hellas",
-      number : "322-112-2223"
-    }])
+    { name : "Arto Hellas", number : "322-112-2223" , id: 1},
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 },
+  ])
+
+  const [filter, setFilter] = useState("")
+  const [filterResults, setFilterResults] = useState(persons)
 
 
   const handleSubmit = (e) => {
@@ -33,33 +38,29 @@ const App = (props) => {
     }
   }
 
+  const handleFilter = (e) => {
+    e.preventDefault()
+    const result = persons.filter(person =>
+        person.name.toLowerCase().includes(filter.toLowerCase())
+    )
+    setFilterResults(result);
+    setFilter("");
+    console.log(result)
+  }
+
   return (
       <div>
         <h1>Phonebook</h1>
-        <div>
-          <form onSubmit={handleFilter}>
-            <label htmlFor="filter" value={filter} handleChange={e => setNewFilter(e.target.value)}>Filter shown with</label>
-            <input name="filter"/>
-          </form>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <h1>Add a new contact</h1>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input name="name" value={name} onChange={e => setNewName(e.target.value)}/>
-          </div>
-          <div>
-            <label htmlFor='number'> Number: </label>
-            <input name="number" value={number} onChange={e => setNewNumber(e.target.value)}/>
-          </div>
-          <div>
-            <button type="submit">Add</button>
-          </div>
-        </form>
+        <Filter filer={filter} setFilter={setFilter}
+                handleFilter={handleFilter} />
+        <PersonForm onSubmit={handleSubmit}
+                    name={name} number={number}
+                    setNewName={setNewName}
+                    setNewNumber={setNewNumber}/>
         <h2>Numbers</h2>
           <ul>
-          { persons.map( person =>
-            <li key={person.id}>{person.name}, {person.number}</li>
+          { filterResults.map( person =>
+            <Persons key={person.id} person={person}/>
           )}
           </ul>
       </div>
