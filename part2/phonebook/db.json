@@ -1,0 +1,19 @@
+{
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "893-23-0123",
+      "id": "1"
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "93-56-92842",
+      "id": "2"
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": "3"
+    }
+  ]
+}
